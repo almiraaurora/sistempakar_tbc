@@ -6,10 +6,10 @@
 	<link rel="stylesheet" href="<?= base_url('assets/css/main.css') ?>" /> 
 </head>
 <body>
-	
+		<div class="header" style="text-align center">
 		<h1>Mulai diagnosa TBC kamu!</h1>
 		<h3>Tambah data baru</h3>
-	
+</div>
    
 		<table style="margin:20px auto;">
 			<tr>
