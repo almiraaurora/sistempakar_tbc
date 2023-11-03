@@ -24,19 +24,19 @@
 		</div>
 		<table style="margin:20px auto;">
 			
-			<form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
+			<form action="<?php echo base_url('Home/tambah_user');?>" method="post">
 			<tr>
 				<td>Nama</td>
-				<td><input type="text" name="nama"></td>
+				<td><input type="text" name="Nama_pasien"></td>
 			</tr>
 			<tr>
 				<td>Usia</td>
-				<td><input type="text" name="alamat"></td>
+				<td><input type="text" name="Usia_pasien"></td>
 			</tr>
 			<tr>
 				<td>Jenis Kelamin</td>
-				<td> <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki<br>
-                     <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan<br></td>
+				<td> <input type="radio" name="Jenis_kelamin" value="Laki-laki"> Laki-laki<br>
+                     <input type="radio" name="Jenis_kelamin" value="Perempuan"> Perempuan<br></td>
 			</tr>
 			<tr>
 				<td></td>

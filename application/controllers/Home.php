@@ -13,15 +13,16 @@ class Home extends CI_Controller{
     }
 
     public function tambah_user(){
-		$nama = $this->input->post('nama');
-		$usia = $this->input->post('usia');
-		$jeniskelamin = $this->input->post('jeniskelamin');
+		$Nama_pasien = $this->input->post('Nama_pasien');
+		$Usia_pasien = $this->input->post('Usia_pasien');
+		$Jenis_kelamin = $this->input->post('Jenis_kelamin');
  
 		$data = array(
-			'nama' => $nama,
-			'usia' => $usia,
-			'jeniskelamin' => $jeniskelamin
+			'Nama_pasien' => $Nama_pasien,
+			'Usia_pasien' => $Usia_pasien,
+			'Jenis_kelamin' => $Jenis_kelamin
 			);
+print($data);
 		$this->M_user->input_data($data,'tabel_user');
 		redirect('V_Gejala');
 	}
