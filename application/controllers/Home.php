@@ -24,6 +24,6 @@ class Home extends CI_Controller{
 			);
 print($data);
 		$this->M_user->input_data($data,'tabel_user');
-		redirect('V_Gejala');
+		redirect('Combination/index');
 	}
 }
