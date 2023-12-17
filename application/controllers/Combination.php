@@ -5,6 +5,7 @@ class Combination extends CI_Controller {
     function __construct(){
 		parent::__construct();		
 		$this->load->model('M_gejala');
+		$this->load->model('M_hasil');
 		$this->load->helper('url');
  
 	}
@@ -13,6 +14,7 @@ class Combination extends CI_Controller {
     }
     public function tambah_bobot(){
 		$id_user = $this->M_gejala->get_max_id_user();
+		$id_user = $this->M_hasil->get_max_id_userakhir();
 		$Bobot_batuk = $this->input->post('Bobot_batuk');
 		$Bobot_batukberdarah = $this->input->post('Bobot_batukberdarah');
 		$Bobot_sesaknafas = $this->input->post('Bobot_sesaknafas');
@@ -35,5 +37,23 @@ class Combination extends CI_Controller {
 		$this->M_gejala->input_data($data,'tabel_bobot');
 		redirect('Hasil/index');
 	}
+
+	public function menghitungCF(){
+        // $cf = $this->input->post('cf');
+        // $cf_kesimpulan = $this->input->post('cf_kesimpulan');
+
+        // Validasi input
+        if ($cf >= 0 && $cf <= 1 && $bobot_gejala >= 0 && $bobot_gejala <= 1) {
+            // Menghitung certainty factor
+            $hasilcf = $this->hitungCertaintyFactor($cf, $bobot_gejala);
+            // echo "Certainty Factor hasil perhitungan: " . $hasilcf;
+             $this->M_gejala->input_datacf($cf,'tabel_hasil');
+        } else {
+            echo "Mohon masukkan Certainty Factor antara 0 dan 1.";
+        }
+    }
+	private function hitungCertaintyFactor($cf, $bobot_gejala) {
+        return ($cf * $bobot_gejala);
+    }
 	
 }
