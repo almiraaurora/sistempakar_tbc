@@ -13,5 +13,11 @@ class M_gejala extends CI_Model{
 		$row = $query->row();
 		return $row->max_id_user;
 	}
+
+	public function get_max_id_userakhir() {
+		$query = $this->db->query('SELECT MAX(id_user) as max_id_user FROM tabel_user');
+		$row = $query->row();
+		return $row->max_id_user;
+	}
 	
 }

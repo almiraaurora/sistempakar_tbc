@@ -5,14 +5,21 @@
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="Admin">
+          <i class="bi bi-house-door-fill"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="Gejala">
           <i class="bi bi-card-list"></i>
           <span>Daftar Gejala</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="DataLatih">
           <i class="bi bi-folder"></i>
           <span>Kelola Gejala</span>
         </a>

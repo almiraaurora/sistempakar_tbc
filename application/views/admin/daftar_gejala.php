@@ -38,51 +38,55 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body>
-
- 
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Blank Page</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Blank</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-6">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    
-
-  </main><!-- End #main -->
-
+<main id="main" class="main">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Kode Gejala</th>
+      <th scope="col">Nama Gejala</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>G1</td>
+      <td>Batuk lebih dari 2 minggu</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>G2</td>
+      <td>Batuk Berdarah</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>G3</td>
+      <td>Sesak nafas dan nyeri dada</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>G4</td>
+      <td>Demam</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>G5</td>
+      <td>Keringat dimalam hari</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>G6</td>
+      <td>Kehilangan nafsu makan</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>G7</td>
+      <td>Penurunan berat badan</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</main>
  
 </html>

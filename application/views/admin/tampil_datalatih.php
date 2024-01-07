@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,51 +37,47 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body>
-
- 
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Blank Page</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Blank</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-6">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-6">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Example Card</h5>
-              <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    
-
-  </main><!-- End #main -->
-
- 
+<main id="main" class="main">
+	<table class="table" style="width: 650px; ">
+	<form>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Example file input</label>
+    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+  </div>
+</form>
+<tr>
+			<th>No</th>
+			<th>G1</th>
+			<th>G2</th>
+			<th>G3</th>
+			<th>G4</th>
+            <th>G5</th>
+            <th>G6</th>
+            <th>G7</th>
+		</tr>
+		<?php 
+		$no = 1;
+		foreach($tampil_datalatih as $u){ 
+		?>
+		<tr>
+			<td><?php echo $no++ ?></td>
+			<td><?php echo $u->Bobot_batuk ?></td>
+			<td><?php echo $u->Bobot_batukberdarah ?></td>
+			<td><?php echo $u->Bobot_sesaknafas ?></td>
+            <td><?php echo $u->Bobot_demam ?></td>
+            <td><?php echo $u->Bobot_keringat ?></td>
+            <td><?php echo $u->Bobot_nafsumakan ?></td>
+            <td><?php echo $u->Bobot_beratbadan ?></td>
+			
+		</tr>
+        <?php } ?>
+</table>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</main>
 </html>
