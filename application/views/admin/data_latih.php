@@ -42,12 +42,14 @@
 <main id="main" class="main">
 	<table class="container" style="width: 650px; ">
 	<form>
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-</form>
-	<form action="<?php echo base_url('DataLatih/tambah_bobotdatalatih');?>" method="post">
+	
+	
+	</form>
+	<form action="<?php echo base_url('TambahDataLatih/tambah_bobotdatalatih');?>" method="post">
+	<div class="form-group">
+		<label for="exampleFormControlFile1">Example file input</label>
+		<input type="file" class="form-control-file" id="exampleFormControlFile1">
+	</div>
 			<tr>
 				<td>G1</td>
 				<td>
@@ -149,6 +151,18 @@
 					<option value="0.6"> Cukup Yakin</option>
 					<option value="0.4"> Sedikit Yakin</option>
 					<option value="0.2"> Tidak Yakin</option>
+					</select>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>label</td>
+				<td>
+				<div class="form-group col">
+					<label for="exampleFormControlSelect1">pilih sesuai kondisi anda</label>
+					<select class="form-control" id="exampleFormControlSelect1" name="label">
+					<option value="1"> Ya</option>
+					<option value="0"> Tidak</option>
 					</select>
 				</div>
 				</td>

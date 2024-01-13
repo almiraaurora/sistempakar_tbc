@@ -38,39 +38,35 @@
   ======================================================== -->
 </head>
 <body>
-<main id="main" class="main">
-	<table class="table" style="width: 650px; ">
-	<form>
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-</form>
-<tr>
-			<th>No</th>
-			<th>G1</th>
-			<th>G2</th>
-			<th>G3</th>
-			<th>G4</th>
-            <th>G5</th>
-            <th>G6</th>
-            <th>G7</th>
-		</tr>
-		<?php 
-		$no = 1;
-		foreach($tampil_datalatih as $u){ 
-		?>
-		<tr>
-			<td><?php echo $no++ ?></td>
-			<td><?php echo $u->Bobot_batuk ?></td>
-			<td><?php echo $u->Bobot_batukberdarah ?></td>
-			<td><?php echo $u->Bobot_sesaknafas ?></td>
+      <main id="main" class="main">
+        <table class="table" style="width: 650px; ">
+      <a href="TambahDataLatih" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Tambah Data</a>
+            <tr>
+                  <th>No</th>
+                  <th>G1</th>
+                  <th>G2</th>
+                  <th>G3</th>
+                  <th>G4</th>
+                  <th>G5</th>
+                  <th>G6</th>
+                  <th>G7</th>
+                  <th>Label</th>
+          </tr>
+          <?php 
+          $no = 1;
+          foreach($tampil_datalatih as $u){ 
+          ?>
+          <tr>
+            <td><?php echo $no++ ?></td>
+            <td><?php echo $u->Bobot_batuk ?></td>
+            <td><?php echo $u->Bobot_batukberdarah ?></td>
+            <td><?php echo $u->Bobot_sesaknafas ?></td>
             <td><?php echo $u->Bobot_demam ?></td>
             <td><?php echo $u->Bobot_keringat ?></td>
             <td><?php echo $u->Bobot_nafsumakan ?></td>
             <td><?php echo $u->Bobot_beratbadan ?></td>
-			
-		</tr>
+            <td><?php echo $u->label ?></td>
+		      </tr>
         <?php } ?>
 </table>
     <!-- Optional JavaScript -->
