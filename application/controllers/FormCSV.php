@@ -28,10 +28,31 @@ class FormCSV extends CI_Controller{
             $handle = fopen($file, "r");
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 // Lakukan sesuatu dengan data yang dibaca
-                $this->M_datalatih->input_datalatih($data); // Gantilah your_model dengan model yang sesuai
+                // $Bobot_batuk = $this->input->post('Bobot_batuk');
+                // $Bobot_batukberdarah = $this->input->post('Bobot_batukberdarah');
+                // $Bobot_sesaknafas = $this->input->post('Bobot_sesaknafas');
+                // $Bobot_demam = $this->input->post('Bobot_demam');
+                // $Bobot_keringat = $this->input->post('Bobot_keringat');
+                // $Bobot_nafsumakan = $this->input->post('Bobot_nafsumakan');
+                // $Bobot_beratbadan = $this->input->post('Bobot_beratbadan');
+                // $label = $this->input->post('label');
+                $data = array(
+                    'Bobot_batuk' => $data[0],
+                    'Bobot_batukberdarah' => $data[1],
+                    'Bobot_sesaknafas' => $data[2],
+                    'Bobot_demam' => $data[3],
+                    'Bobot_keringat' => $data[4],
+                    'Bobot_nafsumakan' => $data[5],
+                    'Bobot_beratbadan' => $data[6],
+                    'label' => $data[7]
+                    );
+                $this->M_datalatih->input_datalatih($data, 'tabel_datalatih'); // Gantilah your_model dengan model yang sesuai
             }
             fclose($handle);
             redirect('DataLatih'); // Ganti data dengan halaman tujuan Anda
+        }
+        else {
+            echo 'Format file tidak valid!';
         }
     }
 
