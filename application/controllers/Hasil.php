@@ -20,23 +20,7 @@ class Hasil extends CI_Controller{
         $data['ds_data'] = $ds_data;
         $this->load->view('V_Hasil', $data);
     }
-    // public function index() {
-    //     $this->load->model('M_hasil'); // Memuat model
-
-    //     // Mendapatkan data Certainty Factor (CF) dari model
-    //     $cf_data = $this->M_hasil->getCFData();
-
-    //     // Mendapatkan data Dempster-Shafer (DS) dari model
-    //     $ds_data = $this->M_hasil->getDSData();
-
-    //     // Mengirim data ke view
-    //     $data['cf_data'] = $cf_data;
-    //     $data['ds_data'] = $ds_data;
-
-    //     // Menampilkan view dengan data yang telah diperoleh
-    //     $this->load->view('hasil_view', $data);
-    // }
-
+  
     public function tambah_userakhir(){
         $id_user = $this->M_kombinasi->get_max_id_userakhir();
         $hasil_perhitungan = $this->input->post('hasil_perhitungan');

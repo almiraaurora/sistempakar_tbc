@@ -26,7 +26,7 @@
       </li><!-- End Data Latih Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="DataLatih">
+        <a class="nav-link collapsed" href="DataUji">
           <i class="bi bi-folder"></i>
           <span>Data Uji</span>
         </a>
@@ -35,7 +35,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-person"></i>
-          <span>Kelola User</span>
+          <span>Analisis Hasil</span>
         </a>
       </li><!-- End Kelola User Page Nav -->
 

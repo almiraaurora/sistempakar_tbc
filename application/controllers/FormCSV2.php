@@ -1,10 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class FormCSV extends CI_Controller{
+class FormCSV2 extends CI_Controller{
 	function __construct(){
-		parent::__construct();		
-		$this->load->model('admin_model/M_datalatih');
+		parent::__construct();	
         $this->load->model('admin_model/M_datauji');
     	$this->load->helper('url');
 	}
@@ -17,7 +16,7 @@ class FormCSV extends CI_Controller{
 		// ];
 		//$data['tampil_datalatih'] = $this->M_datalatih->tampil_datalatih();
         $data['title'] = "Halaman Form CSV";
-        $data['isi'] = 'admin/import_form';
+        $data['isi'] = 'admin/import_formuji';
 		$this->load->view('layout/all', $data);
 
 		// $this->load->view('v_tampil',$data);
@@ -47,10 +46,10 @@ class FormCSV extends CI_Controller{
                     'Bobot_beratbadan' => $data[6],
                     'label' => $data[7]
                     );
-                $this->M_datalatih->input_datalatih($data, 'tabel_datalatih'); // Gantilah your_model dengan model yang sesuai
+                $this->M_datauji->input_datauji($data, 'tabel_datauji'); // Gantilah your_model dengan model yang sesuai
             }
             fclose($handle);
-            redirect('DataLatih'); // Ganti data dengan halaman tujuan Anda
+            redirect('DataUji'); // Ganti data dengan halaman tujuan Anda
         }
         else {
             echo 'Format file tidak valid!';
