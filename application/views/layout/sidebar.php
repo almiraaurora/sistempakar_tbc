@@ -33,7 +33,7 @@
       </li><!-- End Data Uji Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" href="Analisis">
           <i class="bi bi-person"></i>
           <span>Analisis Hasil</span>
         </a>
