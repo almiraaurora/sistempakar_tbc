@@ -10,6 +10,18 @@ class M_datalatih extends CI_Model{
         // $this->db->set($data);
         // $this->db->insert($table);
 	}
+    
+    public function get_max_id() {
+        $this->db->select_max('id_datalatih');
+        $query = $this->db->get('tabel_datalatih');
+        return $query->row()->id_datalatih;
+    }
+
+    // Metode untuk mengambil data dari tabel datalatih untuk analisis
+    public function getDataforAnalisis() {
+        $query = $this->db->get('tabel_datalatih');
+        return $query->result_array();
+    }
 
 
 }

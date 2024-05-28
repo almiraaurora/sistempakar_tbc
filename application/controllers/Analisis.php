@@ -13,47 +13,39 @@ class Analisis extends CI_Controller{
 
 
     public function index() {
-        // $cf_values = $this->cache->get('cf_values');
-        // if (!$cf_values) {
-        //     $cf_values = $this->getCFValues();
-        //     $this->cache->save('cf_values', $cf_values, 60); // Cache for 60 seconds
-        // }
 
         $cf_values = $this->getCFValues();
-
         $symptoms = array('Bobot_batuk', 'Bobot_batukberdarah', 'Bobot_sesaknafas', 'Bobot_demam', 'Bobot_keringat', 'Bobot_nafsumakan', 'Bobot_beratbadan');
         $masses = $this->evaluateCF($symptoms, $cf_values);
         $combined_mass = $this->combineMass($masses);
-
+        $insertdata = $this-> pindahData();
+        
+        $data = array();
         $data['cf_values'] = $cf_values;
         $data['masses'] = $masses;
         $data['combined_mass'] = $combined_mass;
+        $data['insertdata'] = $insertdata;
+
+        // Hitung hasil perhitungan
+        $total_mass = $combined_mass; // Simulasikan perhitungan dengan menjumlahkan semua massa
+        $hasil_perhitungan = $total_mass;
+
+        $this->saveAnalisisData($combined_mass, $total_mass, $insertdata);
+
+        
         $data['tampil_analisislatih'] = $this->M_analisis->tampil_analisislatih();
         $data['title'] = "Halaman Analisis";
         $data['isi'] = 'admin/analisis_hasil';
         $this->load->view('layout/all', $data);
     }
 
-    public function pindahData() {
-        // Ambil data dari tabel A
-        $dataTabeldatalatih = $this->M_datalatih->tampil_datalatih();
-
-        // Masukkan data ke dalam tabel B
-        foreach ($dataTabeldatalatih as $data) {
-            $this->M_analisis->insertData_datalatih($data);
-        }
-
-        echo "Data berhasil dipindahkan dari tabel A ke tabel B.";
-    }
 
     public function id_lanjutananalisis() {
-        $id_analisislatih = $this->M_analisis->get_max_id_analisis();
-        $hasil_perhitungan = $this->input->post('hasil_perhitungan');
-        $data = array(
-            'id_analisislatih' => $id_analisislatih,
-            'label' => $label
-        );
-        $this->M_analisis->input_analisislatih($data, 'tabel_analisislatih');
+         // Lakukan sesuatu dengan nilai maksimum yang didapatkan (misalnya, tampilkan di view)
+         $id_analisislatih = $this->M_analisis->get_max_id_analisis();
+         $data['max_id'] = $max_id;
+         $this->M_analisis->input_analisislatih($data, 'tabel_analisislatih');
+         //$this->load->view('admin/analisis_hasil', $data); // Ganti 'view_name' dengan nama view Anda
     }
 
     public function getCFValues() {
@@ -75,13 +67,13 @@ class Analisis extends CI_Controller{
 
     public function evaluateCF($symptoms, $cf_values) {
         $bobotpakar = array(
-            "batuk" => 1.0,
-            "batukberdarah" => 0.8,
-            "sesaknafas" => 0.6,
-            "demam" => 0.4,
-            "keringat" => 0.6,
-            "nafsumakan" => 0.4,
-            "beratbadan" => 0.4
+            "Bobot_batuk" => 1.0,
+            "Bobot_batukberdarah" => 1.0,
+            "Bobot_sesaknafas" => 0.8,
+            "Bobot_demam" => 0.6,
+            "Bobot_keringat" => 0.6,
+            "Bobot_nafsumakan" => 0.4,
+            "Bobot_beratbadan" => 0.4
         );
 
         $masses = array();
@@ -103,8 +95,12 @@ class Analisis extends CI_Controller{
             $product *= $mass;
         }
 
-        $getCombinations = function ($arr, $len) use (&$getCombinations, &$product, &$denominator) {
+        $getCombinations = function ($arr, $len) use ($masses, &$getCombinations, &$product, &$denominator) {
             $count = count($arr);
+
+            if ($count === 0) {
+                return array(); // Mengembalikan array kosong jika tidak ada elemen yang tersisa
+            }
 
             for ($i = 0; $i < $count; $i++) {
                 $x = [$arr[$i]];
@@ -115,6 +111,11 @@ class Analisis extends CI_Controller{
                 } else {
                     $next = array_slice($arr, $i + 1);
                     $subComb = $getCombinations($next, $len - 1);
+
+                    // Periksa apakah $subComb adalah array
+                    if (!is_array($subComb)) {
+                        $subComb = array();
+                    }
                     foreach ($subComb as $sub) {
                         $intersection = 1;
 
@@ -139,5 +140,114 @@ class Analisis extends CI_Controller{
         }
 
         return $product / $denominator;
+    }
+    
+    public function hitungAkurasi($data) {
+        $TP = 0;
+        $TN = 0;
+        $FP = 0;
+        $FN = 0;
+    
+        foreach ($data as $item) {
+            $actual_label = $item['label_latih'];  // Label sebenarnya
+            $predicted_label = $this->predictLabel($item['Hasil_perhitungan']);  // Pastikan mengirim hasil_perhitungan
+    
+            if ($actual_label == 1 && $predicted_label == 1) {
+                $TP++;
+            } elseif ($actual_label == 0 && $predicted_label == 0) {
+                $TN++;
+            } elseif ($actual_label == 0 && $predicted_label == 1) {
+                $FP++;
+            } elseif ($actual_label == 1 && $predicted_label == 0) {
+                $FN++;
+            }
+        }
+    
+        // Hitung akurasi
+        $accuracy = ($TP + $TN) / ($TP + $TN + $FP + $FN);
+        return $accuracy;
+    }
+    
+    private function predictLabel($hasil_perhitungan) {
+        $threshold = 0.5; 
+        return $hasil_perhitungan > $threshold ? 1 : 0;
+    }
+    
+
+    public function pindahData() {
+        // Ambil data dari tabel datalatih
+        $dataTabelDatalatih = $this->M_datalatih->getDataforAnalisis();
+
+        // Iterasi melalui setiap data dan masukkan ke tabel analisislatih
+        foreach ($dataTabelDatalatih as $data) {
+            // Siapkan data yang akan dimasukkan ke tabel analisislatih
+            $insertData = array(
+                'id_analisislatih'=> $data['id_datalatih'],
+                'Bobotlatih_batuk' => $data['Bobot_batuk'],
+                'Bobotlatih_batukberdarah' => $data['Bobot_batukberdarah'],
+                'Bobotlatih_sesaknafas' => $data['Bobot_sesaknafas'],
+                'Bobotlatih_demam' => $data['Bobot_demam'],
+                'Bobotlatih_keringat' => $data['Bobot_keringat'],
+                'Bobotlatih_nafsumakan' => $data['Bobot_nafsumakan'],
+                'Bobotlatih_beratbadan' => $data['Bobot_beratbadan'],
+                'label_latih' => $data['label'] // Sesuaikan dengan nama kolom di tabel datalatih
+            );
+
+             // Cek apakah data dengan id_analisislatih sudah ada
+             $existingData = $this->M_analisis->getAnalisisById($data['id_datalatih']);
+             if ($existingData) {
+                 // Jika sudah ada, perbarui data tersebut
+                 $this->M_analisis->updateData_datalatih($data['id_datalatih'], $insertData);
+             } else {
+                 // Jika belum ada, masukkan data baru
+                 $this->M_analisis->insertData_datalatih($insertData);
+             }
+
+            // Panggil metode model untuk menyimpan data ke tabel analisislatih
+            //$this->M_analisis->insertData_datalatih($insertData);
+        }
+
+        echo "Data berhasil dipindahkan dari tabel datalatih ke tabel analisislatih.";
+    }
+
+    private function saveAnalisisData($masses, $hasil_perhitungan) {
+        
+        if (!is_array($masses)) {
+            $masses = array($masses);
+        }
+    
+        // // Hitung total massa
+        // $total_mass = array_sum($combined_mass);
+        $max_id = $this->M_datalatih->get_max_id();
+        $all_ids = $this->M_datalatih->getDataforAnalisis();
+        // Persiapkan data yang akan disimpan ke dalam tabel database
+        foreach ($all_ids as $id) {
+        $predicted_label = $this->predictLabel($hasil_perhitungan);
+        $data = array(
+            //'id_analisislatih' => $max_id + 1,
+            'id_analisislatih' => $id['id_datalatih'],
+            'Bobotlatih_batuk' => isset($masses['Bobot_batuk']) ? $masses['Bobot_batuk'] : 0,
+            'Bobotlatih_batukberdarah' => isset($masses['Bobot_batukberdarah']) ? $masses['Bobot_batukberdarah'] : 0,
+            'Bobotlatih_sesaknafas' => isset($masses['Bobot_sesaknafas']) ? $masses['Bobot_sesaknafas'] : 0,
+            'Bobotlatih_demam' => isset($masses['Bobot_demam']) ? $masses['Bobot_demam'] : 0,
+            'Bobotlatih_keringat' => isset($masses['Bobot_keringat']) ? $masses['Bobot_keringat'] : 0,
+            'Bobotlatih_nafsumakan' => isset($masses['Bobot_nafsumakan']) ? $masses['Bobot_nafsumakan'] : 0,
+            'Bobotlatih_beratbadan' => isset($masses['Bobot_beratbadan']) ? $masses['Bobot_beratbadan'] : 0,
+            'label_latih' => isset($id['label']) ? $id['label'] : 0,
+            'label_setelah' => $predicted_label,
+            'Hasil_perhitungan' => $hasil_perhitungan
+        );
+        }
+         // Cek apakah data dengan id_analisislatih sudah ada
+         $existingData = $this->M_analisis->getAnalisisById($id['id_datalatih']);
+         if ($existingData) {
+             // Jika sudah ada, perbarui data tersebut
+             $this->M_analisis->updateData_datalatih($id['id_datalatih'], $data);
+         } else {
+             // Jika belum ada, masukkan data baru
+             $this->M_analisis->input_analisislatih($data);
+         }
+        // Panggil metode model untuk menyimpan data ke dalam tabel database
+        //$this->M_analisis->input_analisislatih($data);
     }
 }

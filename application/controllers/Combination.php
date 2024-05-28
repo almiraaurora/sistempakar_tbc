@@ -37,25 +37,4 @@ class Combination extends CI_Controller {
 		redirect('Analisis');
 	}
 
-	
-
-
-	// public function menghitungCF(){
-    //     // $cf = $this->input->post('cf');
-    //     // $cf_kesimpulan = $this->input->post('cf_kesimpulan');
-
-    //     // Validasi input
-    //     if ($cf >= 0 && $cf <= 1 && $bobot_gejala >= 0 && $bobot_gejala <= 1) {
-    //         // Menghitung certainty factor
-    //         $hasilcf = $this->hitungCertaintyFactor($cf, $bobot_gejala);
-    //         // echo "Certainty Factor hasil perhitungan: " . $hasilcf;
-    //          $this->M_gejala->input_datacf($cf,'tabel_hasil');
-    //     } else {
-    //         echo "Mohon masukkan Certainty Factor antara 0 dan 1.";
-    //     }
-    // }
-	// private function hitungCertaintyFactor($cf, $bobot_gejala) {
-    //     return ($cf * $bobot_gejala);
-    // }
-	
 }
