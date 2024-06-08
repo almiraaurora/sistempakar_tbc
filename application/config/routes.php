@@ -54,3 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['pindah-data'] = 'analisis/pindahData';
+$route['FormUpdateDataLatih/(:num)'] = 'FormUpdateDatalatih/$1';
+$route['FormUpdateDatalatih/update_bobotdatalatih'] = 'FormUpdateDatalatih/update_bobotdatalatih';
+
+

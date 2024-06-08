@@ -52,6 +52,8 @@
                   <th>G6</th>
                   <th>G7</th>
                   <th>Label</th>
+                  <th>Update</th>
+                  <th>Delete</th>
           </tr>
           <?php 
           $no = 1;
@@ -67,6 +69,14 @@
             <td><?php echo $u->Bobot_nafsumakan ?></td>
             <td><?php echo $u->Bobot_beratbadan ?></td>
             <td><?php echo $u->label ?></td>
+            <td> 
+            <a href="<?php echo site_url('FormUpdateDatalatih/index/'.$u->id_datalatih); ?>" class="btn btn-primary btn-sm active">Edit</a>
+
+            </td>
+            <td><form action="<?php echo site_url('TambahDataLatih/delete_bobotdatalatih/'.$u->id_datalatih); ?>" method="post">
+            <button type="submit" class="btn btn-primary btn-sm active" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+          </form>
+        </td>
 		      </tr>
         <?php } ?>
 </table>

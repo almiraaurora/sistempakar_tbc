@@ -15,6 +15,17 @@ class M_analisis extends CI_Model{
       return $query->row_array();
     }
 
+    public function getCFdataById($id_datalatih) {
+      $this->db->where('id_datalatih', $id_datalatih);
+      $query = $this->db->get('tabel_datalatih'); // Sesuaikan dengan nama tabel yang sesuai
+  
+      if ($query->num_rows() > 0) {
+          return $query->result(); // Mengembalikan hasil sebagai array objek
+      } else {
+          return array(); // Mengembalikan array kosong jika tidak ada hasil
+      }
+    }
+
     public function updateData_datalatih($id, $data) {
       $this->db->where('id_analisislatih', $id);
       $this->db->set($data);

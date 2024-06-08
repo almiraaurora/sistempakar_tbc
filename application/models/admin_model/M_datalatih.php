@@ -23,5 +23,26 @@ class M_datalatih extends CI_Model{
         return $query->result_array();
     }
 
+    public function get_datalatih_by_id($id) {
+        $this->db->where('id_datalatih', $id);
+        $query = $this->db->get('tabel_datalatih');
+        return $query->row();
+    }
+    
+
+    function update_datalatih($id, $data) {
+        $this->db->where('id_datalatih', $id);
+        $this->db->update('tabel_datalatih', $data);
+    }
+
+    function delete_datalatih($id) {
+         // Pertama hapus record terkait di tabel_analisislatih
+        $this->db->where('id_analisislatih', $id);
+        $this->db->delete('tabel_analisislatih');
+
+        $this->db->where('id_datalatih', $id);
+        $this->db->delete('tabel_datalatih');
+    }
+
 
 }

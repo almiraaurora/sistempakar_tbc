@@ -30,7 +30,7 @@ class Analisis extends CI_Controller{
         $total_mass = $combined_mass; // Simulasikan perhitungan dengan menjumlahkan semua massa
         $hasil_perhitungan = $total_mass;
 
-        $this->saveAnalisisData($combined_mass, $total_mass, $insertdata);
+        $this->saveAnalisisData($masses, $total_mass, $insertdata);
 
         
         $data['tampil_analisislatih'] = $this->M_analisis->tampil_analisislatih();
@@ -51,8 +51,26 @@ class Analisis extends CI_Controller{
     public function getCFValues() {
         $cf = $this->M_analisis->getCFdata();
 
-        $cf_values = array();
+        $cf_values2 = array();
         foreach ($cf as $row) {
+            $cf_values2['Bobot_batuk'] = $row->Bobot_batuk;
+            $cf_values2['Bobot_batukberdarah'] = $row->Bobot_batukberdarah;
+            $cf_values2['Bobot_sesaknafas'] = $row->Bobot_sesaknafas;
+            $cf_values2['Bobot_demam'] = $row->Bobot_demam;
+            $cf_values2['Bobot_keringat'] = $row->Bobot_keringat;
+            $cf_values2['Bobot_nafsumakan'] = $row->Bobot_nafsumakan;
+            $cf_values2['Bobot_beratbadan'] = $row->Bobot_beratbadan;
+        }
+
+        return $cf_values2;
+    }
+
+    public function getCFValuesForRow($id_datalatih) {
+        $cf = $this->M_analisis->getCFdataById($id_datalatih);
+    
+        $cf_values = array();
+        if (!empty($cf) && isset($cf[0])) {
+            $row = $cf[0];
             $cf_values['Bobot_batuk'] = $row->Bobot_batuk;
             $cf_values['Bobot_batukberdarah'] = $row->Bobot_batukberdarah;
             $cf_values['Bobot_sesaknafas'] = $row->Bobot_sesaknafas;
@@ -61,9 +79,10 @@ class Analisis extends CI_Controller{
             $cf_values['Bobot_nafsumakan'] = $row->Bobot_nafsumakan;
             $cf_values['Bobot_beratbadan'] = $row->Bobot_beratbadan;
         }
-
+    
         return $cf_values;
     }
+    
 
     public function evaluateCF($symptoms, $cf_values) {
         $bobotpakar = array(
@@ -138,8 +157,9 @@ class Analisis extends CI_Controller{
         if ($denominator == 0) {
             return 0;
         }
-
-        return $product / $denominator;
+        
+        $hasil_perhitungan = $product / $denominator;
+        return $hasil_perhitungan;
     }
     
     public function hitungAkurasi($data) {
@@ -180,18 +200,24 @@ class Analisis extends CI_Controller{
 
         // Iterasi melalui setiap data dan masukkan ke tabel analisislatih
         foreach ($dataTabelDatalatih as $data) {
+           
             // Siapkan data yang akan dimasukkan ke tabel analisislatih
             $insertData = array(
-                'id_analisislatih'=> $data['id_datalatih'],
-                'Bobotlatih_batuk' => $data['Bobot_batuk'],
-                'Bobotlatih_batukberdarah' => $data['Bobot_batukberdarah'],
-                'Bobotlatih_sesaknafas' => $data['Bobot_sesaknafas'],
-                'Bobotlatih_demam' => $data['Bobot_demam'],
-                'Bobotlatih_keringat' => $data['Bobot_keringat'],
-                'Bobotlatih_nafsumakan' => $data['Bobot_nafsumakan'],
-                'Bobotlatih_beratbadan' => $data['Bobot_beratbadan'],
-                'label_latih' => $data['label'] // Sesuaikan dengan nama kolom di tabel datalatih
+            'id_analisislatih'=> $data['id_datalatih'],
+            'Bobotlatih_batuk' => $data['Bobot_batuk'],
+            'Bobotlatih_batukberdarah' => $data['Bobot_batukberdarah'],
+            'Bobotlatih_sesaknafas' => $data['Bobot_sesaknafas'],
+            'Bobotlatih_demam' => $data['Bobot_demam'],
+            'Bobotlatih_keringat' => $data['Bobot_keringat'],
+            'Bobotlatih_nafsumakan' => $data['Bobot_nafsumakan'],
+            'Bobotlatih_beratbadan' => $data['Bobot_beratbadan'],
+            'label_latih' => $data['label'], // Sesuaikan dengan nama kolom di tabel datalatih
+            // 'label_setelah' => $predicted_label,
+            // 'Hasil_perhitungan' => $combined_mass
             );
+        
+                // Debugging: Tampilkan data yang akan dimasukkan
+        // echo "Insert Data: " . var_export($insertData, true) . "\n";
 
              // Cek apakah data dengan id_analisislatih sudah ada
              $existingData = $this->M_analisis->getAnalisisById($data['id_datalatih']);
@@ -207,10 +233,13 @@ class Analisis extends CI_Controller{
             //$this->M_analisis->insertData_datalatih($insertData);
         }
 
+
         echo "Data berhasil dipindahkan dari tabel datalatih ke tabel analisislatih.";
     }
 
-    private function saveAnalisisData($masses, $hasil_perhitungan) {
+
+
+    public function saveAnalisisData($masses, $hasil_perhitungan) {
         
         if (!is_array($masses)) {
             $masses = array($masses);
@@ -222,6 +251,26 @@ class Analisis extends CI_Controller{
         $all_ids = $this->M_datalatih->getDataforAnalisis();
         // Persiapkan data yang akan disimpan ke dalam tabel database
         foreach ($all_ids as $id) {
+             // Cek apakah data memiliki nilai id_datalatih yang valid
+
+        // if (!isset($data['id_datalatih']) || $data['id_datalatih'] == 0) {
+        //     echo "Invalid id_datalatih: " . var_export($data, true);
+        //     continue; // Lewati data ini jika id_datalatih tidak valid
+        
+   
+          // Ambil nilai CF untuk baris data ini
+        $cf_values = $this->getCFValuesForRow($id['id_datalatih']);
+        
+        // Definisikan gejala
+        $symptoms = array('Bobot_batuk', 'Bobot_batukberdarah', 'Bobot_sesaknafas', 'Bobot_demam', 'Bobot_keringat', 'Bobot_nafsumakan', 'Bobot_beratbadan');
+        
+        // Hitung massa untuk gejala tersebut
+        $masses = $this->evaluateCF($symptoms, $cf_values);
+
+        $predicted_label = $this->predictLabel($hasil_perhitungan);
+        
+        // Gabungkan massa
+        $combined_mass = $this->combineMass($masses);
         $predicted_label = $this->predictLabel($hasil_perhitungan);
         $data = array(
             //'id_analisislatih' => $max_id + 1,
@@ -237,7 +286,12 @@ class Analisis extends CI_Controller{
             'label_setelah' => $predicted_label,
             'Hasil_perhitungan' => $hasil_perhitungan
         );
-        }
+        //}
+
+        
+        // Debugging: Tampilkan data yang akan disimpan
+        //echo "Save Data: " . var_export($data, true) . "\n";
+        
          // Cek apakah data dengan id_analisislatih sudah ada
          $existingData = $this->M_analisis->getAnalisisById($id['id_datalatih']);
          if ($existingData) {
@@ -250,4 +304,5 @@ class Analisis extends CI_Controller{
         // Panggil metode model untuk menyimpan data ke dalam tabel database
         //$this->M_analisis->input_analisislatih($data);
     }
+}
 }
