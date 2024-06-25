@@ -59,19 +59,19 @@
             <!-- Tambahkan kolom untuk atribut lainnya di sini -->
         </tr>
         <?php $no=1; 
-        foreach ($tampil_analisislatih as $a){?>
+        foreach ($tampil_analisisuji as $a){?>
             <tr>
                 <td><?php echo $no++ ?></td>
-                <td><?php echo $a->Bobotlatih_batuk ?></td>
-                <td><?php echo $a->Bobotlatih_batukberdarah ?></td>
-                <td><?php echo $a->Bobotlatih_sesaknafas ?></td>
-                <td><?php echo $a->Bobotlatih_demam ?></td>
-                <td><?php echo $a->Bobotlatih_keringat ?></td>
-                <td><?php echo $a->Bobotlatih_nafsumakan ?></td>
-                <td><?php echo $a->Bobotlatih_beratbadan ?></td>
-                <td><?php echo $a->Hasil_perhitungan ?></td>
-                <td><?php echo $a->label_latih ?></td>
-                <td><?php echo $a->label_setelah ?></td>
+                <td><?php echo $a->Bobotuji_batuk ?></td>
+                <td><?php echo $a->Bobotuji_batukberdarah ?></td>
+                <td><?php echo $a->Bobotuji_sesaknafas ?></td>
+                <td><?php echo $a->Bobotuji_demam ?></td>
+                <td><?php echo $a->Bobotuji_keringat ?></td>
+                <td><?php echo $a->Bobotuji_nafsumakan ?></td>
+                <td><?php echo $a->Bobotuji_beratbadan ?></td>
+                <td><?php echo $a->Hasil_perhitunganuji ?></td>
+                <td><?php echo $a->label_uji ?></td>
+                <td><?php echo $a->labeluji_setelah ?></td>
                 <!-- Tambahkan kolom untuk atribut lainnya di sini -->
             </tr>
         <?php } ?>
@@ -90,17 +90,17 @@
             <th>F1 Score</th>
         </tr>
         <?php $no=1; 
-        if (!empty($getLatestConfusionMatrix) && is_array($getLatestConfusionMatrix)) { ?>
+        if (!empty($getLatestConfusionMatrixUji) && is_array($getLatestConfusionMatrixUji)) { ?>
             <tr>
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['TP']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['TN']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['FP']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['FN']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['Accuracy']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['Precission']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['Recall']; ?></td>
-                <td><?php echo $getLatestConfusionMatrix['F1_Score']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['TP']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['TN']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['FP']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['FN']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['Accuracy']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['Precission']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['Recall']; ?></td>
+                <td><?php echo $getLatestConfusionMatrixUji['F1_Score']; ?></td>
             </tr>
         <?php } else { ?>
             <tr>

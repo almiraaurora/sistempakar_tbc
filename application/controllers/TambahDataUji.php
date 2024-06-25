@@ -40,4 +40,9 @@ class TambahDataUji extends CI_Controller{
       $this->M_datauji->input_datauji($data,'tabel_datauji');
       redirect('DataUji');
     }
+
+    public function delete_bobotdatauji($id) {
+      $this->M_datauji->delete_datauji($id);
+      redirect('DataUji');
+  }
 }

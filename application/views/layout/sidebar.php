@@ -50,7 +50,7 @@
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
+            <a href="Analisis/tampil_datauji">
               <i class="bi bi-circle"></i><span>Analisis Data Uji</span>
             </a>
           </li>

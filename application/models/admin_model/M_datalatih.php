@@ -19,6 +19,7 @@ class M_datalatih extends CI_Model{
 
     // Metode untuk mengambil data dari tabel datalatih untuk analisis
     public function getDataforAnalisis() {
+        //$this->db->select('id_datalatih, Bobot_batuk, Bobot_batukberdarah, Bobot_sesaknafas, Bobot_demam, Bobot_keringat, Bobot_nafsumakan, Bobot_beratbadan, label');
         $query = $this->db->get('tabel_datalatih');
         return $query->result_array();
     }

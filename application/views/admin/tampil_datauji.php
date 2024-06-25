@@ -50,7 +50,9 @@
                   <th>G5</th>
                   <th>G6</th>
                   <th>G7</th>
-                  <th>Label</th>
+                  <th>label</th>
+                  <th>Update</th>
+                  <th>Delete</th>
           </tr>
           <?php 
           $no = 1;
@@ -66,9 +68,18 @@
             <td><?php echo $u->Bobot_nafsumakan ?></td>
             <td><?php echo $u->Bobot_beratbadan ?></td>
             <td><?php echo $u->label ?></td>
+            <td> 
+            <a href="<?php echo site_url('FormUpdateDataUji/index/'.$u->id_datauji); ?>" class="btn btn-primary btn-sm active">Edit</a>
+
+            </td>
+            <td><form action="<?php echo site_url('TambahDataUji/delete_bobotdatauji/'.$u->id_datauji); ?>" method="post">
+            <button type="submit" class="btn btn-primary btn-sm active" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+          </form>
+        </td>
 		      </tr>
         <?php } ?>
 </table>
+<a href="Analisis/tampil_datauji" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Analisis</a>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -57,4 +57,10 @@ $route['pindah-data'] = 'analisis/pindahData';
 $route['FormUpdateDataLatih/(:num)'] = 'FormUpdateDatalatih/$1';
 $route['FormUpdateDatalatih/update_bobotdatalatih'] = 'FormUpdateDatalatih/update_bobotdatalatih';
 
+$route['FormUpdateDataUji/(:num)'] = 'FormUpdateDataUji/$1';
+$route['FormUpdateDataUji/update_bobotdatauji'] = 'FormUpdateDataUji/update_bobotdatauji';
+
+$route['Analisis'] = 'Analisis/index';
+$route['Analisis/tampil_datauji'] = 'Analisis/tampil_datauji';
+
 
